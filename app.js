@@ -18,33 +18,19 @@ app.set('port', (process.env.PORT || 5000));
 // set up the response-time middleware
 app.use(responseTime());
 
-// if a user visits /api/facebook, return the total number of stars 'facebook'
-// has across all it's public repositories on GitHub
-app.get('/search/movie/:name', function(req, res) {
-	res.send(searchMovieAutocomplete(req.params.name));
+// Search a movie by name
+app.get('/search/movie/:query', function(req, res) {
+
+    request('https://api.themoviedb.org/3/search/movie?api_key=' + API_KEY + '&query=' + req.params.query, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.send(body);
+        } else {
+        	res.send(error);
+        }
+    });
+
 });
 
 app.listen(app.get('port'), function(){
   console.log('Server listening on port: ', app.get('port'));
 });
-
-// call the GitHub API to fetch information about the user's repositories
-function searchMovieAutocomplete(query) {
-	/*
-	var result = axios.get('https://api.themoviedb.org/3/search/movie', {
-		params: {
-  		    'api_key': API_KEY,
-  		    'query': query
-		}
-	});
-	console.log(result);
-	*/
-	request
-	    .get("https://api.themoviedb.org/3/search/movie?api_key=" + API_KEY + "&query=" + query)
-	    .on('error', function(err) {
-	    	return err;
-	    })
-	    .on('success', function(response) {
-	    	return response.total_results;
-	    });
-}
