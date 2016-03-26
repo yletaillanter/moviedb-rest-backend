@@ -1,0 +1,18 @@
+{
+  "name": "moviedb-explorer-backend",
+  "version": "1.0.0",
+  "description": "Backend server REST",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "yletaillanter",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.9.1",
+    "express": "^4.13.4",
+    "redis": "^2.5.3",
+    "response-time": "^2.3.1"
+  }
+}
