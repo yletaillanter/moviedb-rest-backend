@@ -16,7 +16,7 @@ var movieDb = require('moviedb')(API_KEY)
     console.log("Error " + err);
 });*/
 
-app.set('port', (process.env.PORT || 5000));
+//app.set('port', (process.env.PORT || 5000));
 app.listen(app.get('port'), function(){
   console.log('Server listening on port: ', app.get('port'));
 });
