@@ -9,6 +9,8 @@ var redisClient = redis.createClient();
 var API_KEY = "a1c65ce9d24b2d4ed117f413bb94a122";
 var BASE_URL = 'https://api.themoviedb.org/3/';
 
+var movieDb = require('moviedb')(API_KEY)
+
 // if an error occurs, print it to the console
 redisClient.on('error', function (err) {
     console.log("Error " + err);
@@ -22,23 +24,18 @@ app.use(responseTime());
 
 // Search a movie by name
 app.get('/search/movie/:query', function(req, res) {
-
-    request(BASE_URL + 'search/movie?api_key=' + API_KEY + '&query=' + req.params.query, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            res.send(body);
-        } else {
-        	res.send(error);
-        }
+    movieDb.searchMovie({query: req.params.query}, function(error, response){
+        res.send(response);
     });
 
+/* if (!error && response.statusCode == 200) { */
 });
 
-// Get a movie by id WIP §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
+// Get information about a movie
 app.get('/movie/:id', function(req, res) {
-	console.log()
-    request(BASE_URL + 'movie?api_key=' + API_KEY + '&id=' + req.params.id,function (error, response, body) {
+    movieDb.movieInfo({id: req.params.id}, function(error, response){
         if (!error && response.statusCode == 200) {
-            res.send(body);
+            res.send(response);
         } else {
             res.send(error);
         }
