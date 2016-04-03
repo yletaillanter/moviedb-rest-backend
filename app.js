@@ -3,8 +3,8 @@ var app = express();
 
 var responseTime = require('response-time');
 var request = require('request');
-var redis = require('redis');
-var redisClient = redis.createClient();
+//var redis = require('redis');
+//var redisClient = redis.createClient();
 
 var API_KEY = "a1c65ce9d24b2d4ed117f413bb94a122";
 var BASE_URL = 'https://api.themoviedb.org/3/';
@@ -12,9 +12,9 @@ var BASE_URL = 'https://api.themoviedb.org/3/';
 var movieDb = require('moviedb')(API_KEY)
 
 // if an error occurs, print it to the console
-redisClient.on('error', function (err) {
+/*redisClient.on('error', function (err) {
     console.log("Error " + err);
-});
+});*/
 
 app.set('port', (process.env.PORT || 5000));
 app.listen(app.get('port'), function(){
